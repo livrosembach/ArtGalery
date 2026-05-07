@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: windowScene)
 
-        let rootViewController: UIViewController = ArtGalleryViewController()
+        let rootViewController: UIViewController = HomeViewController()
 
         let navigationController = UINavigationController(rootViewController: rootViewController)
 

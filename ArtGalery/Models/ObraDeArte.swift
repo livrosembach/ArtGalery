@@ -13,5 +13,4 @@ struct ObraDeArte{
     var imagemNome: String
     var descricao: String
 
-
 }
