@@ -13,7 +13,6 @@ class HomeView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 400, height: 240)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         

@@ -5,9 +5,8 @@
 //  Created by Livia Rosembach Oliveira on 07/05/26.
 //
 
-
 final class HomeViewModel {
-    private(set) var obras: [ObraDeArte] =
+    var obras: [ObraDeArte] =
     [
         ObraDeArte(
             titulo: "Painel da Praça 19 de Dezembro",

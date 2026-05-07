@@ -12,6 +12,8 @@ extension HomeViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        print("TOUCHED ITEM Nº \(indexPath.row)")
+        // Access the selected item from the controller's data source instead of the collection view's dataSource
+        let obra = viewModel.obras[indexPath.item]
+        goToDetails(obra: obra)
     }
 }
