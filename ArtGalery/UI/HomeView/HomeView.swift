@@ -11,16 +11,20 @@ class HomeView: UIView {
     
     private(set) lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 400, height: 240)
+        layout.scrollDirection = .vertical
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
+        view.alwaysBounceVertical = true
+        view.showsVerticalScrollIndicator = false
+        view.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
         
         return view
     }()
     
     init() {
         super.init(frame: .zero)
+        backgroundColor = .systemBackground
         buildHierarchy()
         setupConstraints()
         setupAdditionalConfiguration()

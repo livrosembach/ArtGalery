@@ -18,8 +18,14 @@ class HomeViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         homeView.collectionView.dataSource = self
         homeView.collectionView.delegate = self
+        view.backgroundColor = .systemBackground
+        title = "Galeria"
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = AppColors.accent
     }
     
     func goToDetails(obra: ObraDeArte) {

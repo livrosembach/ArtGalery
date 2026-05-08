@@ -15,6 +15,11 @@ class DetailViewController: UIViewController{
         self.view = detailView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
     func setup(obra: ObraDeArte) {
         detailView.setup(obra: obra)
     }
