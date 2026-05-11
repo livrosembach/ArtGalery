@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -49,9 +49,29 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        // Access the selected item from the controller's data source instead of the collection view's dataSource
-        let obra = viewModel.obras[indexPath.item]
-        goToDetails(obra: obra)
+        collectionView.deselectItem(at: indexPath, animated: true)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ObraDeArteCell else {
+            let obra = currentObras[indexPath.item]
+            goToDetails(obra: obra)
+            return
+        }
+        let obra = currentObras[indexPath.item]
+        animateSelection(cell: cell) { [weak self] in
+            self?.goToDetails(obra: obra)
+        }
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let query = searchController.searchBar.text ?? ""
+        let normalizedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        if normalizedQuery.isEmpty {
+            filteredObras = []
+        } else {
+            filteredObras = viewModel.obras.filter { obra in
+                obra.titulo.range(of: normalizedQuery, options: .caseInsensitive) != nil
+            }
+        }
+        homeView.collectionView.reloadData()
     }
 }
 
@@ -66,5 +86,29 @@ private extension HomeViewController {
     
     var interItemSpacing: CGFloat {
         12
+    }
+    
+    func animateSelection(cell: UICollectionViewCell, completion: @escaping () -> Void) {
+        UIView.animate(
+            withDuration: 0.12,
+            delay: 0,
+            options: [.curveEaseInOut],
+            animations: {
+                cell.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+            },
+            completion: { _ in
+                UIView.animate(
+                    withDuration: 0.18,
+                    delay: 0,
+                    options: [.curveEaseInOut],
+                    animations: {
+                        cell.transform = .identity
+                    },
+                    completion: { _ in
+                        completion()
+                    }
+                )
+            }
+        )
     }
 }

@@ -9,8 +9,17 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private let homeView = HomeView()
+    let homeView = HomeView()
     let viewModel = HomeViewModel()
+    var filteredObras: [ObraDeArte] = []
+    let searchController = UISearchController(searchResultsController: nil)
+    var isSearching: Bool {
+        let hasText = !(searchController.searchBar.text ?? "").isEmpty
+        return searchController.isActive && hasText
+    }
+    var currentObras: [ObraDeArte] {
+        isSearching ? filteredObras : viewModel.obras
+    }
     
     
     override func loadView() {
@@ -26,12 +35,24 @@ class HomeViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = AppColors.accent
+        setupSearch()
     }
     
     func goToDetails(obra: ObraDeArte) {
         let detailVC = DetailViewController()
         detailVC.setup(obra: obra)
         navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    private func setupSearch() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Buscar por nome"
+        searchController.searchBar.autocapitalizationType = .words
+        searchController.searchBar.tintColor = AppColors.accent
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
     }
 }
 

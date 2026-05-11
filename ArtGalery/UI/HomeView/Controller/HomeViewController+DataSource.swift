@@ -12,7 +12,7 @@ extension HomeViewController: UICollectionViewDataSource {
         _: UICollectionView,
         numberOfItemsInSection _: Int
     ) -> Int {
-        viewModel.obras.count
+        currentObras.count
     }
     
     func collectionView(
@@ -24,7 +24,7 @@ extension HomeViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? ObraDeArteCell else { fatalError("Could not dequeue ObraDeArteCell") }
         
-        cell.setup(obra: viewModel.obras[indexPath.row])
+        cell.setup(obra: currentObras[indexPath.row])
         
         return cell
     }
