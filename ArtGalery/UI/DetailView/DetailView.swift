@@ -91,15 +91,19 @@ class DetailView: UIView{
     private(set) lazy var shareObraButton: UIButton = {
         let view = UIButton(type: .system)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("Compartilhar obra", for: .normal)
-        view.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
-        view.tintColor = .white
-        view.backgroundColor = AppColors.accent
+        var config = UIButton.Configuration.filled()
+        config.title = "Compartilhar obra"
+        config.image = UIImage(systemName: "square.and.arrow.up")
+        config.imagePlacement = .leading
+        config.imagePadding = 8
+        config.baseBackgroundColor = AppColors.accent
+        config.baseForegroundColor = .white
+        config.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)
+        view.configuration = config
         view.layer.cornerRadius = 14
+        view.layer.masksToBounds = true
         view.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         view.titleLabel?.adjustsFontForContentSizeCategory = true
-        view.contentEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
-        view.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
         return view
     }()
     

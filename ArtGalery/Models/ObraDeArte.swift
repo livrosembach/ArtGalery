@@ -12,5 +12,4 @@ struct ObraDeArte{
     var estilo: String
     var imagemNome: String
     var descricao: String
-
 }
